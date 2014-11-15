@@ -1,0 +1,17 @@
+{
+    "name": "tmf/wp-metabox-helper",
+    "description": "A Pimple service that facilitates the creation of WordPress metaboxes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Forrer",
+            "email": "tom.forrer@gmail.com"
+        }
+    ],
+    "require": {
+        "tmf/wp-hookable-service": "dev-master"
+    },
+    "require-dev": {
+        "johnpbloch/wordpress": "~4.0.0"
+    }
+}
