@@ -8,10 +8,20 @@
             "email": "tom.forrer@gmail.com"
         }
     ],
+    "autoload": {
+      "classmap": ["classes", "features/bootstrap/class-metabox-feature-context.php"]
+    },
     "require": {
-        "tmf/wp-hookable-service": "dev-master"
+        "tmf/wp-hookable-service": "dev-master",
+        "twig/twig": "~1.0"
     },
     "require-dev": {
-        "johnpbloch/wordpress": "~4.0.0"
+        "johnpbloch/wordpress": "~4.0.0",
+        "behat/mink-goutte-driver": "~1.1",
+        "tmf/wordpress-extension": "dev-master"
+    },
+    "extra": {
+        "wordpress-install-dir": "vendor/wordpress"
     }
+
 }

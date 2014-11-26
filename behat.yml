@@ -1,0 +1,21 @@
+default:
+    suites:
+        default:
+            contexts:
+                - MetaboxFeatureContext
+
+    extensions:
+        Tmf\WordPressExtension:
+            path: '%paths.base%/vendor/wordpress'
+            symlink:
+                from: '%paths.base%/features/bootstrap/plugins/metabox-test'
+                to: '%paths.base%/vendor/wordpress/wp-content/plugins/metabox-test'
+            connection:
+                username: 'root'
+                password: ''
+
+        Behat\MinkExtension:
+            base_url:    'http://localhost:8000'
+            sessions:
+                default:
+                    goutte: ~
