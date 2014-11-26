@@ -1,0 +1,12 @@
+.postbox > .inside > .item {
+    margin-bottom: 1em;
+}
+.postbox > .inside > .item label {
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+}
+.postbox > .inside > .item label + * {
+    width: 100%;
+    margin: 0;
+}

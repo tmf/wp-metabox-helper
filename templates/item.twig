@@ -1,0 +1,16 @@
+<div class="item">
+    {% block label %}
+        {% if label is not empty %}
+            <label for="{{ key }}">{{ label }}</label>
+        {% endif %}
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% if description is not empty %}
+        <p class="description">{{ description }}</p>
+    {% endif %}
+
+</div>

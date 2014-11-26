@@ -1,0 +1,40 @@
+{% extends "item.twig" %}
+{% block content %}
+    <select id="{{ key }}" name="{{ key }}{{ multiple ? '[]' : '' }}" {{ multiple ? 'multiple' : '' }}>
+        {% if values is empty %}
+            <option value="">Please Select...</option>
+        {% endif %}
+        {% for value in values %}
+            {% for option in options %}
+                {% if option.value == value %}
+                    <option value="{{ option.value }}"
+                            {% for dataKey, dataValue in option.data %}
+                                data-{{ dataKey }}="{{ dataValue }}"
+                            {% endfor %} selected="selected">
+                        {{ option.label }}
+                    </option>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for option in options %}
+            {% if option.value not in values %}
+            <option value="{{ option.value }}"
+                    {% for dataKey, dataValue in option.data %}
+                        data-{{ dataKey }}="{{ dataValue }}"
+                    {% endfor %}>
+                {{ option.label }}
+            </option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                $('select[name="{{  key }}{{ multiple ? '[]' : '' }}"]').selectize({
+                    maxItems: {{ multiple ? 'null' : '1' }},
+                    plugins: ['remove_button', 'drag_drop']
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
