@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+env:
+  - WP_VERSION="~3.9.0"
+  - WP_VERSION="~4.0.0"
+
+services:
+  - mysql
+
+before_script:
+  - cp .travis.composer.json composer.json                       # override normal composer file: use one without wordpress
+  - rm composer.lock
+  - composer install --no-interaction --prefer-source            # Have to prefer source or hit github rate limit
+  - composer require --dev "johnpbloch/wordpress $WP_VERSION"    # require specific wordpress version for build matrix
+  - mysql -e 'create database IF NOT EXISTS wordpress;'          # db setup
+  - php -S localhost:8000 -t vendor/wordpress &> /dev/null &     # webserver setup, ignore web server request log
+  - sleep 3                                                      # wait for the built in web server
+
+script:
+  - vendor/bin/behat                                             # run behat

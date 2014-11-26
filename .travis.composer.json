@@ -1,0 +1,26 @@
+{
+    "name": "tmf/wp-metabox-helper",
+    "description": "A Pimple service that facilitates the creation of WordPress metaboxes",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Forrer",
+            "email": "tom.forrer@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["classes", "features/bootstrap/class-metabox-feature-context.php"]
+    },
+    "require": {
+        "tmf/wp-hookable-service": "~0.1",
+        "twig/twig": "~1.0"
+    },
+    "require-dev": {
+        "behat/mink-goutte-driver": "~1.1",
+        "tmf/wordpress-extension": "~0.1"
+    },
+    "extra": {
+        "wordpress-install-dir": "vendor/wordpress"
+    }
+
+}
