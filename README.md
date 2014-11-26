@@ -1,20 +1,22 @@
 WordPress Metabox Helper Service
 ================================
 
-A [Pimple] service based on the [Hookable Service Provider] that facilitates the creation of metaboxes for post meta
+[![Build Status](https://travis-ci.org/tmf/wp-metabox-helper.svg?branch=master)](https://travis-ci.org/tmf/wp-metabox-helper)
+
+A [Pimple](http://pimple.sensiolabs.org/) service based on the [Hookable Service Provider](https://github.com/tmf/wp-hookable-service) that facilitates the creation of metaboxes for post meta
 fields. The items in a metabox representing post meta fields are compatible with WordPress revisions and autosaves.
 This service can be registered in a pimple container and be used in WordPress themes or plugins. 
 
 This metabox helper service comes with the following types of items out of the box:
 * Text inputs
-* Dropdown fields (implemented with [selectize])
+* Dropdown fields (implemented with [selectize](http://brianreavis.github.io/selectize.js/))
 * Textareas
 * TinyMCE Editors
 
 Usage
 -----
 
-This service is installable via [Composer] and relies on it's class autoloading mechanism. You can package the vendor
+This service is installable via [Composer](https://getcomposer.org/) and relies on it's class autoloading mechanism. You can package the vendor
 directory with you theme or plugin, with your WordPress installation or with a setup of your choosing.
 
 1. Create a composer project for your plugin or theme:
