@@ -2,3 +2,4 @@ vendor
 *.phar
 composer.lock
 .idea
+features/bootstrap/plugins/metabox-test/base
