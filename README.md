@@ -18,6 +18,7 @@ This service is installable via [Composer] and relies on it's class autoloading 
 directory with you theme or plugin, with your WordPress installation or with a setup of your choosing.
 
 1. Create a composer project for your plugin or theme:
+    
     ```bash
     cd your-plugin-directory
     # install composer phar
@@ -26,10 +27,12 @@ directory with you theme or plugin, with your WordPress installation or with a s
     ./composer.phar init
     ```
 2. Add the metabox helper service as a dependency in your composer.json
+    
     ```bash
     ./composer.phar require tmf/wp-metabox-helper ~0.1
     ```
 3. Create a pimple container and register the metabox helper service
+    
     ```php
     // load the vendors via composer autoload
     if (file_exists( __DIR__ . '/vendor/autoload.php')) {
@@ -49,6 +52,7 @@ directory with you theme or plugin, with your WordPress installation or with a s
     $services->register(new MetaboxServiceProvider());
     ```
 4. Add a metabox and some metabox items representing post meta values
+    
     ```
     add_action('admin_init', function () use ($services) {
         // create a metabox for 'post' post types
