@@ -23,7 +23,8 @@ class MetaboxFeatureContext extends WordPressContext implements SnippetAccepting
     public function iSelectFromTheDropdown($item, $label)
     {
         $session = $this->getSession();
-        $session->wait(10000, 'typeof jQuery.fn.selectize === "function"');
+        // wait 5 seconds (in us)
+        $session->wait(5000000, 'typeof jQuery.fn.selectize === "function"');
         $session->executeScript(sprintf('jQuery("label:contains(\"%s\") + select")[0].selectize.addItem("%s")', $label, $item));
     }
 }
