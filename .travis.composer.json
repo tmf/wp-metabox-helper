@@ -16,8 +16,8 @@
         "twig/twig": "~1.0"
     },
     "require-dev": {
-        "behat/mink-goutte-driver": "~1.1",
-        "tmf/wordpress-extension": "~0.1"
+        "tmf/wordpress-extension": "~0.1",
+        "behat/mink-selenium2-driver": "~1.2"
     },
     "extra": {
         "wordpress-install-dir": "vendor/wordpress"
