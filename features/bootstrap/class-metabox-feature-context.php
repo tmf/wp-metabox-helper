@@ -25,6 +25,6 @@ class MetaboxFeatureContext extends WordPressContext implements SnippetAccepting
         $session = $this->getSession();
         // wait 3 seconds (in ms)
         $session->wait(3000, 'typeof jQuery.fn.selectize === "function"');
-        $session->executeScript(sprintf('jQuery("label:contains(\"%s\") + select")[0].selectize.addItem("%s")', $label, $item));
+        $session->executeScript(sprintf('jQuery("label:contains(\'%s\') + select")[0].selectize.addItem("%s")',  $this->fixStepArgument($label),  $this->fixStepArgument($item)));
     }
 }
