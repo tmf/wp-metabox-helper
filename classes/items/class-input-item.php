@@ -26,9 +26,9 @@ class InputItem extends TwigTemplateItemRenderer implements MetaboxItemInterface
     /**
      * @param array $options
      */
-    public function __construct(array $options = ['type' => 'text'])
+    public function __construct(array $options = [])
     {
-        $this->options = $options;
+        $this->options = array_merge(['type' => 'text'], $options);
     }
 
     /**

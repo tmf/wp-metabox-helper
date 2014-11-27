@@ -18,5 +18,15 @@ before_script:
   - php -S localhost:8000 -t vendor/wordpress &> /dev/null &     # webserver setup, ignore web server request log
   - sleep 3                                                      # wait for the built in web server
 
+  # XVFB
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 5
+                                                        # give xvfb some time to start
+  # Selenium server
+  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar"
+  - "java -jar selenium-server-standalone-2.39.0.jar > /dev/null 2>/dev/null &"
+  - sleep 5
+
 script:
   - vendor/bin/behat                                             # run behat

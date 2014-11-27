@@ -35,6 +35,6 @@ $services->register(new MetaboxServiceProvider(), ['metaboxes.base_directory' =>
 add_action('admin_init', function () use ($services) {
     $services['metaboxes']['foo'] = new Metabox('Foo', ['post'], 'normal', 'high');
     $services['metaboxes']['foo']['text'] = new InputItem(['label' => 'Metatext', 'description' => 'Some description']);
-    $services['metaboxes']['foo']['dropdown'] = new DropdownItem(['multiple' => false, 'options' => [['label' => 'Foo', 'value'=>'foo'], ['label' => 'ASDF', 'value'=>'asdf']]]);
+    $services['metaboxes']['foo']['dropdown'] = new DropdownItem(['multiple' => false, 'label' => 'Dropdown',  'options' => [['label' => 'Foo', 'value'=>'foo'], ['label' => 'ASDF', 'value'=>'asdf']]]);
     $services['metaboxes']['foo']['editor'] = new EditorItem(['label' => 'Editor']);
 });

@@ -53,6 +53,7 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     public function getItemTemplateContext(WP_Post $post, array $revisions = [])
     {
         $values = get_post_meta($post->ID, $this->getKey(), false);
+
         return array_merge([
             'key'      => $this->getKey(),
             'values'   => $values,
@@ -74,9 +75,12 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
                 add_metadata('post', $revision->ID, $key, $value);
             }
         } else {
-            update_metadata('post', $revision->ID, $key, $values);
+            if (empty($values)) {
+                delete_post_meta($revision->ID, $key);
+            } else {
+                update_metadata('post', $revision->ID, $key, $values);
+            }
         }
-
     }
 
     /**
