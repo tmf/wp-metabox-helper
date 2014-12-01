@@ -89,7 +89,7 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     public function enqueueAssets($adminPage)
     {
         if (in_array($adminPage, array('post.php', 'post-new.php'))) {
-            wp_enqueue_script('selectize', $this->generateUrl('vendor/bower-asset/selectize/dist/js/standalone/selectize.min.js'), array('jquery'));
+            wp_enqueue_script('selectize', $this->generateUrl('vendor/bower_components/selectize/dist/js/standalone/selectize.min.js'), array('jquery'));
             wp_enqueue_style('selectize', $this->generateUrl('resources/selectize.wordpress.css'));
         }
     }

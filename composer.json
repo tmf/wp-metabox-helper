@@ -14,8 +14,7 @@
     "require": {
         "tmf/wp-hookable-service": "~0.1",
         "twig/twig": "~1.0",
-        "fxp/composer-asset-plugin": "~1.0@dev",
-        "bower-asset/selectize": "0.11.2"
+        "koala-framework/composer-extra-assets": "~1.0"
     },
     "require-dev": {
         "johnpbloch/wordpress": "~4.0.0",
@@ -23,7 +22,10 @@
         "behat/mink-selenium2-driver": "~1.2"
     },
     "extra": {
-        "wordpress-install-dir": "vendor/wordpress"
+        "wordpress-install-dir": "vendor/wordpress",
+        "require-bower": {
+            "selectize": "*"
+        }
     }
 
 }

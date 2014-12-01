@@ -9,6 +9,7 @@ services:
   - mysql
 
 before_script:
+  - npm install -g bower
   - cp .travis.composer.json composer.json                       # override normal composer file: use one without wordpress
   - composer install --no-interaction --prefer-source            # Have to prefer source or hit github rate limit
   - composer require --dev "johnpbloch/wordpress $WP_VERSION"    # require specific wordpress version for build matrix
