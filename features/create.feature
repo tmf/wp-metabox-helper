@@ -20,3 +20,11 @@ Feature: Create Metaboxes and Metabox Items
         And I press "Save Draft"
         Then I should see "Post draft updated"
         And the "Metatext" field should contain "Some metavalue"
+
+    Scenario: Dropdown post meta value
+        When I am on "/wp-admin/post-new.php"
+        And I fill in the post title with "foo post"
+        And I select "foo" from the dropdown field "dropdown"
+        And I press "Save Draft"
+        Then I should see "Post draft updated"
+        And the "dropdown" field should contain "foo"
