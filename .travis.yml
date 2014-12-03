@@ -19,7 +19,7 @@ install:
 
   # Selenium server
   - "wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar"
-  - "java -jar selenium-server-standalone-2.44.0.jar > /dev/null &"
+  - "java -jar selenium-server-standalone-2.44.0.jar > /dev/null 2>selenium-error.log &"
 
 before_script:
   - cp .travis.composer.json composer.json                       # override normal composer file: use one without wordpress
@@ -31,3 +31,6 @@ before_script:
 
 script:
   - vendor/bin/behat                                             # run behat
+
+after_failure:
+  - cat selenium-error.log
