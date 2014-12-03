@@ -27,4 +27,13 @@ class MetaboxFeatureContext extends WordPressContext implements SnippetAccepting
         $session->wait(3000, 'typeof jQuery.fn.selectize === "function"');
         $session->executeScript(sprintf('jQuery("select[name=\'%s\']")[0].selectize.addItem("%s")',  $this->fixStepArgument($name),  $this->fixStepArgument($item)));
     }
+
+    /**
+     * @When I wait for the notification message :message
+     */
+    public function iWaitForTheNotificationMessage($message)
+    {
+        $session = $this->getSession();
+        $session->wait(60000, sprintf('document.getElementById("message") != null && document.getElementById("message").textContent.indexOf("%s") !== -1', $message));
+    }
 }

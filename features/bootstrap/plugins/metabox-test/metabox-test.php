@@ -30,7 +30,7 @@ use Tmf\Wordpress\Service\Metabox\MetaboxServiceProvider,
 $services = new Pimple\Container();
 
 // $plugin contains the path of this plugin as wordpress sees it
-$services->register(new MetaboxServiceProvider(), ['metaboxes.base_directory' => dirname($plugin) . '/base']);
+$services->register(new MetaboxServiceProvider(), ['metaboxes.base_directory' => dirname($plugin) . '/base', 'metaboxes.vendor_directory' => dirname($plugin) . '/base/vendor']);
 
 add_action('admin_init', function () use ($services) {
     $services['metaboxes']['foo'] = new Metabox('Foo', ['post'], 'normal', 'high');

@@ -12,19 +12,17 @@ Feature: Create Metaboxes and Metabox Items
             | plugin                        | status  |
             | metabox-test/metabox-test.php | enabled |
         And I am logged in as "admin" with password "test"
+        And I am on "/wp-admin/post-new.php"
+        And I fill in the post title with "foo post"
 
     Scenario: Text post meta value
-        When I am on "/wp-admin/post-new.php"
-        And I fill in the post title with "foo post"
-        And I fill in "Metatext" with "Some metavalue"
+        When I fill in "Metatext" with "Some metavalue"
         And I press "Save Draft"
-        Then I should see "Post draft updated"
-        And the "Metatext" field should contain "Some metavalue"
+        And I wait for the notification message "Post draft updated"
+        Then the "Metatext" field should contain "Some metavalue"
 
     Scenario: Dropdown post meta value
-        When I am on "/wp-admin/post-new.php"
-        And I fill in the post title with "foo post"
-        And I select "foo" from the dropdown field "dropdown"
+        When I select "foo" from the dropdown field "dropdown"
         And I press "Save Draft"
-        Then I should see "Post draft updated"
-        And the "dropdown" field should contain "foo"
+        And I wait for the notification message "Post draft updated"
+        Then the "dropdown" field should contain "foo"
