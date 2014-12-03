@@ -8,24 +8,26 @@ env:
 services:
   - mysql
 
-before_script:
+install:
   - npm install -g bower
-  - cp .travis.composer.json composer.json                       # override normal composer file: use one without wordpress
-  - composer install --no-interaction --prefer-source            # Have to prefer source or hit github rate limit
-  - composer require --dev "johnpbloch/wordpress $WP_VERSION"    # require specific wordpress version for build matrix
-  - mysql -e 'create database IF NOT EXISTS wordpress;'          # db setup
-  - php -S localhost:8000 -t vendor/wordpress &> /dev/null &     # webserver setup, ignore web server request log
-  - sleep 3                                                      # wait for the built in web server
+  - composer self-update
 
   # XVFB
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 5
-                                                        # give xvfb some time to start
+
   # Selenium server
-  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar"
-  - "java -jar selenium-server-standalone-2.39.0.jar > /dev/null 2>/dev/null &"
-  - sleep 5
+  - "wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar"
+  - "java -jar selenium-server-standalone-2.44.0.jar > /dev/null &"
+
+before_script:
+  - cp .travis.composer.json composer.json                       # override normal composer file: use one without wordpress
+  - composer install
+  - composer require --dev "johnpbloch/wordpress $WP_VERSION"    # require specific wordpress version for build matrix
+  - mysql -e 'create database IF NOT EXISTS wordpress;'          # db setup
+  - php -S localhost:8000 -t vendor/wordpress &> /dev/null &     # webserver setup, ignore web server request log
+  - sleep 3                                                      # wait for the built in web server
 
 script:
   - vendor/bin/behat                                             # run behat
