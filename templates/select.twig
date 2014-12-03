@@ -9,7 +9,7 @@
                 {% if option.value == value %}
                     <option value="{{ option.value }}"
                             {% for dataKey, dataValue in option.data %}
-                                data-{{ dataKey }}="{{ dataValue }}"
+                                data-{{ dataKey }}="{{ dataValue|raw }}"
                             {% endfor %} selected="selected">
                         {{ option.label }}
                     </option>
@@ -20,7 +20,7 @@
             {% if option.value not in values %}
             <option value="{{ option.value }}"
                     {% for dataKey, dataValue in option.data %}
-                        data-{{ dataKey }}="{{ dataValue }}"
+                        data-{{ dataKey }}="{{ dataValue|raw }}"
                     {% endfor %}>
                 {{ option.label }}
             </option>
