@@ -89,8 +89,8 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     public function enqueueAssets($adminPage)
     {
         if (in_array($adminPage, array('post.php', 'post-new.php'))) {
-            wp_enqueue_script('selectize', $this->generateUrl('vendor/bower_components/selectize/dist/js/standalone/selectize.min.js'), array('jquery'));
-            wp_enqueue_style('selectize', $this->generateUrl('resources/selectize.wordpress.css'));
+            wp_enqueue_script('selectize', $this->generateVendorUrl('bower_components/selectize/dist/js/standalone/selectize.min.js'), array('jquery'));
+            wp_enqueue_style('selectize', $this->generateBaseUrl('resources/selectize.wordpress.css'));
         }
     }
 
@@ -98,11 +98,20 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
      * @param string $path
      * @return string
      */
-    protected function generateUrl($path = '')
+    protected function generateBaseUrl($path = '')
     {
         $container = $this->getContainer();
         $baseDirectory = $container['metaboxes.base_directory'];
 
         return get_site_url(null, str_replace(ABSPATH, '', $baseDirectory) . '/' . $path);
+    }
+    /**
+     *
+     */
+    protected function generateVendorUrl($path = ''){
+        $container = $this->getContainer();
+        $vendorDirectory = $container['metaboxes.vendor_directory'];
+
+        return get_site_url(null, str_replace(ABSPATH, '', $vendorDirectory) . '/' . $path);
     }
 } 

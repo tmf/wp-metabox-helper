@@ -54,6 +54,10 @@ class MetaboxHelper implements ArrayAccess, ContainerAwareInterface
             $container['metaboxes.base_directory'] = dirname(__DIR__);
         }
 
+        if (!isset($container['metaboxes.vendor_directory'])) {
+            $container['metaboxes.vendor_directory'] = dirname(__DIR__) . '/vendor';
+        }
+
         $container['metaboxes.twig.loader'] = function ($container) {
             $templateDirectory = $container['metaboxes.base_directory'] . DIRECTORY_SEPARATOR . 'templates';
 
