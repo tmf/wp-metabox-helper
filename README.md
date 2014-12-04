@@ -55,7 +55,7 @@ directory with you theme or plugin, with your WordPress installation or with a s
     ```
 4. Add a metabox and some metabox items representing post meta values
     
-    ```
+    ```php
     add_action('admin_init', function () use ($services) {
         // create a metabox for 'post' post types
         $services['metaboxes']['foo'] = new Metabox('Foo', ['post'], 'normal', 'high');
@@ -66,3 +66,18 @@ directory with you theme or plugin, with your WordPress installation or with a s
         $services['metaboxes']['foo']['editor'] = new EditorItem();
     });
     ```
+
+Extend
+------
+
+If you want to use your own metabox items, your item must implement the `Tmf\Wordpress\Service\Metabox\Item\MetaboxItemInterface` interface.
+You can, however, extend any of the available items or the `Tmf\Wordpress\Service\Metabox\Item\TwigTemplateItemRenderer`. If you want to define your own Twig templates for the item rendering, add a Twig loader to the Twig Chain:
+```php
+add_action('add_meta_boxes', function() use ($services) {
+    $this->getContainer()->extend('metaboxes.twig.loader', function($loader, $services){
+        /** @var Twig_Loader_Chain $loader */
+        $loader->addLoader(new Twig_Loader_Filesystem(get_stylesheet_directory() . '/templates/items'));
+        return $loader;
+    });
+}, 95); // additional twig loaders should be registered between priority 90 and 100
+```
