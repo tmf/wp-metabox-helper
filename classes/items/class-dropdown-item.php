@@ -54,6 +54,7 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     {
         $values = get_post_meta($post->ID, $this->getKey(), false);
 
+        // resolve options if it is a callback
         $this->resolveOptions($post, $revisions);
 
         return array_merge([
@@ -70,7 +71,7 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     protected function resolveOptions(WP_Post $post, array $revisions = [])
     {
         if (is_callable($this->parameters['options'])) {
-            $this->parameters['options'] = call_user_func_array($$this->parameters['options'], [$post, $revisions]);
+            $this->parameters['options'] = call_user_func_array($this->parameters['options'], [$post, $revisions]);
         }
     }
 
