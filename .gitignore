@@ -3,3 +3,5 @@ vendor
 composer.lock
 .idea
 features/bootstrap/plugins/metabox-test/base
+.bowerrc
+bower.json

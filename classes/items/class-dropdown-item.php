@@ -54,11 +54,24 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
     {
         $values = get_post_meta($post->ID, $this->getKey(), false);
 
+        $this->resolveOptions($post, $revisions);
+
         return array_merge([
             'key'      => $this->getKey(),
             'values'   => $values,
             'multiple' => true,
         ], $this->parameters);
+    }
+
+    /**
+     * @param WP_Post $post
+     * @param array   $revisions
+     */
+    protected function resolveOptions(WP_Post $post, array $revisions = [])
+    {
+        if (is_callable($this->parameters['options'])) {
+            $this->parameters['options'] = call_user_func_array($$this->parameters['options'], [$post, $revisions]);
+        }
     }
 
     /**
@@ -105,10 +118,12 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
 
         return get_site_url(null, str_replace(ABSPATH, '', $baseDirectory) . '/' . $path);
     }
+
     /**
      *
      */
-    protected function generateVendorUrl($path = ''){
+    protected function generateVendorUrl($path = '')
+    {
         $container = $this->getContainer();
         $vendorDirectory = $container['metaboxes.vendor_directory'];
 

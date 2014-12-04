@@ -32,7 +32,7 @@
             $(document).ready(function () {
                 $('select[name="{{  key }}{{ multiple ? '[]' : '' }}"]').selectize({
                     maxItems: {{ multiple ? 'null' : '1' }},
-                    plugins: ['remove_button', 'drag_drop']
+                    plugins: {% block selectize-plugins %}['remove_button', 'drag_drop']{% endblock %}
                 });
             });
         })(jQuery);
