@@ -1,0 +1,16 @@
+{% extends "input.twig" %}
+{% set type = 'text' %}
+{% block content %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+
+
+
+                $('input[name="{{ key }}"]').datetimepicker({{ config|json_encode|raw }});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

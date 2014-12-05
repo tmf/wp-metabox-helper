@@ -13,11 +13,11 @@
  * @autor     Tom Forrer <tom.forrer@gmail.com>
  * @copyright Copyright (c) 2014 Tom Forrer (http://github.com/tmf)
  */
-if(!file_exists(__DIR__ . '/base')){
+if (!file_exists(__DIR__ . '/base')) {
     symlink(__DIR__ . '/../../../..', __DIR__ . '/base');
 }
 
-if (file_exists( __DIR__ . '/base/vendor/autoload.php')) {
+if (file_exists(__DIR__ . '/base/vendor/autoload.php')) {
     require_once __DIR__ . '/base/vendor/autoload.php';
 }
 
@@ -26,7 +26,8 @@ use Tmf\Wordpress\Service\Metabox\MetaboxServiceProvider,
     Tmf\Wordpress\Service\Metabox\Item\InputItem,
     Tmf\Wordpress\Service\Metabox\Item\DropdownItem,
     Tmf\Wordpress\Service\Metabox\Item\EditorItem,
-    Tmf\Wordpress\Service\Metabox\Item\PostsDropdownItem;
+    Tmf\Wordpress\Service\Metabox\Item\PostsDropdownItem,
+    Tmf\Wordpress\Service\Metabox\Item\DateTimeItem;
 
 $services = new Pimple\Container();
 
@@ -36,9 +37,9 @@ $services->register(new MetaboxServiceProvider(), ['metaboxes.base_directory' =>
 add_action('admin_init', function () use ($services) {
     $services['metaboxes']['foo'] = new Metabox('Foo', ['post'], 'normal', 'high');
     $services['metaboxes']['foo']['text'] = new InputItem(['label' => 'Metatext', 'description' => 'Some description']);
-    $services['metaboxes']['foo']['dropdown'] = new DropdownItem(['multiple' => false, 'label' => 'Dropdown',  'options' => [['label' => 'Foo', 'value'=>'foo'], ['label' => 'ASDF', 'value'=>'asdf']]]);
+    $services['metaboxes']['foo']['dropdown'] = new DropdownItem(['multiple' => false, 'label' => 'Dropdown', 'options' => [['label' => 'Foo', 'value' => 'foo'], ['label' => 'ASDF', 'value' => 'asdf']]]);
     $services['metaboxes']['foo']['editor'] = new EditorItem(['label' => 'Editor']);
-    $services['metaboxes']['foo']['some_posts'] = new PostsDropdownItem(['label' => 'Some posts', 'options' => function(){
+    $services['metaboxes']['foo']['some_posts'] = new PostsDropdownItem(['label' => 'Some posts', 'options' => function () {
         return array_map(function (WP_Post $post) {
             return [
                 'label' => $post->post_title,
@@ -47,4 +48,5 @@ add_action('admin_init', function () use ($services) {
             ];
         }, get_posts(['posts_per_page' => -1]));
     }]);
+    $services['metaboxes']['foo']['date'] = new DateTimeItem(['label'=> 'Some Date', 'config' => ['timepicker' => false, 'format' => 'd.m.Y']]);
 });

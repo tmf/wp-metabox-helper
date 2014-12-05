@@ -24,7 +24,8 @@
         "wordpress-install-dir": "vendor/wordpress",
         "require-bower": {
             "selectize": "0.11.x",
-            "selectize-wp-post-item": "0.0.x"
+            "selectize-wp-post-item": "0.0.x",
+            "datetimepicker": "2.x"
         }
     }
 

@@ -6,7 +6,8 @@
 
 namespace Tmf\Wordpress\Service\Metabox\Item;
 
-use Tmf\Wordpress\Service\Metabox\MultiMetaValueItemRevisionAwareTrait;
+use Tmf\Wordpress\Service\Metabox\GenerateUrlTrait,
+    Tmf\Wordpress\Service\Metabox\MultiMetaValueItemRevisionAwareTrait;
 use WP_Post;
 
 /**
@@ -16,7 +17,8 @@ use WP_Post;
  */
 class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterface, RevisionAwareItemInterface
 {
-    use MultiMetaValueItemRevisionAwareTrait;
+    use MultiMetaValueItemRevisionAwareTrait,
+        GenerateUrlTrait;
     /**
      * @var array
      */
@@ -108,26 +110,5 @@ class DropdownItem extends TwigTemplateItemRenderer implements MetaboxItemInterf
         }
     }
 
-    /**
-     * @param string $path
-     * @return string
-     */
-    protected function generateBaseUrl($path = '')
-    {
-        $container = $this->getContainer();
-        $baseDirectory = $container['metaboxes.base_directory'];
 
-        return get_site_url(null, str_replace(ABSPATH, '', $baseDirectory) . '/' . $path);
-    }
-
-    /**
-     *
-     */
-    protected function generateVendorUrl($path = '')
-    {
-        $container = $this->getContainer();
-        $vendorDirectory = $container['metaboxes.vendor_directory'];
-
-        return get_site_url(null, str_replace(ABSPATH, '', $vendorDirectory) . '/' . $path);
-    }
 } 
