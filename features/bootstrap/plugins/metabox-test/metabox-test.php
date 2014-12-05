@@ -25,7 +25,8 @@ use Tmf\Wordpress\Service\Metabox\MetaboxServiceProvider,
     Tmf\Wordpress\Service\Metabox\Metabox,
     Tmf\Wordpress\Service\Metabox\Item\InputItem,
     Tmf\Wordpress\Service\Metabox\Item\DropdownItem,
-    Tmf\Wordpress\Service\Metabox\Item\EditorItem;
+    Tmf\Wordpress\Service\Metabox\Item\EditorItem,
+    Tmf\Wordpress\Service\Metabox\Item\PostsDropdownItem;
 
 $services = new Pimple\Container();
 
@@ -37,4 +38,13 @@ add_action('admin_init', function () use ($services) {
     $services['metaboxes']['foo']['text'] = new InputItem(['label' => 'Metatext', 'description' => 'Some description']);
     $services['metaboxes']['foo']['dropdown'] = new DropdownItem(['multiple' => false, 'label' => 'Dropdown',  'options' => [['label' => 'Foo', 'value'=>'foo'], ['label' => 'ASDF', 'value'=>'asdf']]]);
     $services['metaboxes']['foo']['editor'] = new EditorItem(['label' => 'Editor']);
+    $services['metaboxes']['foo']['some_posts'] = new PostsDropdownItem(['label' => 'Some posts', 'options' => function(){
+        return array_map(function (WP_Post $post) {
+            return [
+                'label' => $post->post_title,
+                'value' => $post->ID,
+                'data'  => ['data' => htmlentities(json_encode($post))]
+            ];
+        }, get_posts(['posts_per_page' => -1]));
+    }]);
 });

@@ -15,6 +15,27 @@ use WP_Post;
  */
 class PostsDropdownItem extends DropdownItem
 {
+    /**
+     *
+     */
+    public function setupRevisionField()
+    {
+        $filter = '_wp_post_revision_field_' . $this->getKey();
+        add_filter($filter, function ($value, $field, WP_Post $post, $direction) {
+            $fieldValue = get_post_meta($post->ID, $field, false);
+            $posts = get_posts(['posts_per_page' => -1, 'post_type' => 'any', 'ignore_sticky_posts'=> true, 'post__in' => $fieldValue]);
+            $postLabels = array_map(function($postId) use ($posts){
+                $currentPost = reset(array_filter($posts, function(WP_Post $post) use($postId){
+                    return $post->ID == $postId;
+                }));
+                return sprintf('"%s" (ID: %d)', $currentPost->post_title, $currentPost->ID);
+            }, $fieldValue);
+
+            return sprintf('[ %s ]', implode(', ', $postLabels));
+        }, 10, 100);
+    }
+
+
     public function getItemTemplate(WP_Post $post)
     {
         return 'posts-dropdown.twig';
